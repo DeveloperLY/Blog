@@ -1,0 +1,363 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>DeveloperLY's Blog - DeveloperLY</title><meta name="author" content="DeveloperLY"><meta name="copyright" content="DeveloperLY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一枚单线程程序员的分享地">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DeveloperLY&#39;s Blog">
+<meta property="og:url" content="hhttp://blog.developerly.net/index.html">
+<meta property="og:site_name" content="DeveloperLY&#39;s Blog">
+<meta property="og:description" content="一枚单线程程序员的分享地">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://avatars3.githubusercontent.com/u/9148980?s=460&v=4">
+<meta property="article:author" content="DeveloperLY">
+<meta property="article:tag" content="DeveloperLY">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars3.githubusercontent.com/u/9148980?s=460&v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="hhttp://blog.developerly.net/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'DeveloperLY\'s Blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-03-06 23:58:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="DeveloperLY's Blog"><span class="site-name">DeveloperLY's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/posts/43e3f0a1.html" title="iOS 中使用 iconfont 替换 Assets 中的图标资源"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS 中使用 iconfont 替换 Assets 中的图标资源"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/43e3f0a1.html" title="iOS 中使用 iconfont 替换 Assets 中的图标资源">iOS 中使用 iconfont 替换 Assets 中的图标资源</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-02-03T02:35:32.000Z" title="发表于 2019-02-03 10:35:32">2019-02-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">一、关于 iconfont从名字上拆分icon + font字面上大家都可以理解，其实iconfont 就是让我们可以像使用字体一样来使用图标。
+使用 iconfont 的好处有：
+
+可以减少 App 的体积；
+图标保真缩放，可以省去 @2x 和 @3x 图的适配；
+适应换肤需求，使用方便。
+
+二、使用 iconfont首先去 iconfont 图标库下载需求图标
+阿里巴巴矢量图片库
+其它选择
+easyicon
+fontello
+icomoon
+以阿里巴巴矢量图片库为例使用iconfont
+1、选择图片加入购物车加入项目下载
+每个图标都会对应一个unicode码和名称。 这些代码是&amp;#xXXXX格式的，但是在 Xcode 中需要转换成\U0000XXXX格式的。
+2、将 iconfont.ttf 移到工程中
+下载完以后，我们会发现文件夹里包含如图二文件。我们只需要将iconfont.tff拖入工程中即可。
+3、确保已经导入 iconfont.tff
+为了保证iconfont.tff已导入成功，在Target--Build Phases--Bundle Resource 里检查一 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/7ea64dc1.html" title="使用Mac自动操作制作@1x@2x@3x图片（切图）"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Mac自动操作制作@1x@2x@3x图片（切图）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/7ea64dc1.html" title="使用Mac自动操作制作@1x@2x@3x图片（切图）">使用Mac自动操作制作@1x@2x@3x图片（切图）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-20T13:17:09.000Z" title="发表于 2019-01-20 21:17:09">2019-01-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">在iOS开发中，使用的图片要求导入@1x、@2x和@3x:
+
+使用@1x格式：iPhone3GS（基本上是淘汰了）
+
+使用@2x格式：iPhone 4，4S，5，5S，5C，SE，6，6S，7，8，XR
+
+使用@3x格式：iPhone 6Plus、6sPlus、7Plus、8Plus、X、XS、XS Max
+
+
+这样在开发过程中，将三种图片（比如分别为【xxx.png】、【xxx@2x.png】 和 【xxx@3x.png】）导入到工程图库中的时候可以自动被识别为1x、2x和3x大小的图片
+
+
+可以利用Mac系统中自带的服务自己制作一个快速生成@1x、@2x和@3x图片的功能
+首先spotlight搜索Automator，然后按Enter打开
+
+新建文稿
+
+选取文稿类型为快速操作
+
+在工作流程收到当前的后面选择图像文件
+
+在左边窗口的“操作”下，选择“资源库”中的“文件和文件夹”，将右侧中的“给访达项目重新命名”拖入最右侧的窗口中，（如果警告提示是否要增加一个“拷贝访达项目”操作，选择“不添加”），选择“添加文本”，在输入框中输入【@3x】
+
+拖入“复制访达项目”
+
+选择左侧“资源库” ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/5d5dacf3.html" title="TabBar 的 Item 按钮的像素大小"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TabBar 的 Item 按钮的像素大小"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5d5dacf3.html" title="TabBar 的 Item 按钮的像素大小">TabBar 的 Item 按钮的像素大小</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2019-01-20T12:07:40.000Z" title="发表于 2019-01-20 20:07:40">2019-01-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">TabBar的Item按钮的像素大小要求根据苹果官方人机界面指南（Human Interface Guidelines）可以得知：
+iOS系统会根据设备和方向显示两种标签栏：常规（Regular）和紧凑（Compact），所以在设置自定义TabBar Item的时候也应该包含常规和紧凑两种不同的尺寸～
+根据图形是圆形、方形、宽形、高形，像素也有不同的要求：
+
+如果图标是圆形的，应该提供：25pt@2x、25pt@3x、18pt@2x、18pt@3x
+
+如果图标是方形的，应该提供：23pt@2x、23pt@3x、17pt@2x、17pt@3x
+
+
+
+
+
+如果图标是宽形的，应该提供：31pt@2x、31pt@3x、23pt@2x、23pt@3x
+
+如果图标是高形的，应该提供：28pt@2x、28pt@3x、20pt@2x、20pt@3x
+
+
+完整表格~
+</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/a1a87ec3.html" title="复杂度分析"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复杂度分析"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/a1a87ec3.html" title="复杂度分析">复杂度分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-30T02:30:35.000Z" title="发表于 2018-12-30 10:30:35">2018-12-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">数据结构和算法</a></span></div><div class="content">一、概念算法复杂度是指算法在编写成可执行程序后，运行时所需要的资源，资源包括时间资源和内存资源。应用于数学和计算机导论。
+同一问题可用不同算法解决，而一个算法的质量优劣将影响到算法乃至程序的效率。算法分析的目的在于选择合适算法和改进算法。一个算法的评价主要从时间复杂度和空间复杂度来考虑。
+学习数据结构和算法，就一定离不开时间、空间复杂度分析。复杂度分析是整个算法学习的精髓，只要掌握了它，数据结构和算法的内容基本上就掌握了一半。
+
+二、为什么需要复杂度分析
+预测算法所需要的资源
+计算时间（CPU消耗）
+内存空间（RAM消耗）
+通信时间（带宽消耗）
+
+
+预测算法的运行时间
+在给定输入规模时，所执行的基本操作数量
+或者称之为算法复杂度（Algorithm Complexity）
+
+
+测试结果非常依赖测试环境
+测试环境中硬件的不同对测试结果有很大的影响
+
+
+测试结果受到数据规模的影响很大
+对于小规模的数据排序，插入排序可能反倒会比快速排序要快
+
+
+
+所以，我们需要一个不用具体的测试数据来测试，就可以粗略地估计算法的执行效率的方法。这就是时间、空间复杂度分析方法。
+三、大 O 复杂度表示法大O表 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/f8580263.html" title="算法和数据结构"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法和数据结构"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/f8580263.html" title="算法和数据结构">算法和数据结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-12-30T02:00:50.000Z" title="发表于 2018-12-30 10:00:50">2018-12-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/">数据结构和算法</a></span></div><div class="content">数据结构这门课程是大小计算机系的必修课，很多人第一次接触这门课时，都会觉的数据结构和算法很抽象，晦涩难懂，宛如天书。虽然在大学的时候老师讲的都听明白了，但是毕业后不是专门从事算法相关的工作。所以到现在已经忘记很多了。如果你想让自己的编程能力有质的飞跃，不再停留于调用现成的东西而是追求更完美的实现， 对编程还有追求？不想被行业淘汰？那就不要只会写凑合能用的代码！那么数据结构和算法是你的必修课！
+
+一、什么是数据结构官方定义:数据结构是一门研究非数值计算的程序设计问题中的操作对象，以及它们之间的关系和操作等相关问题的学科。
+大部分数据结构和算法的教材，都会给这两个概念明确一下定义， 但是这些定义都很抽象，对理解这两个概念并没有实质性的帮助，反倒会让你陷入死抠定义的误区。虽然我们说没必要深挖严格的定义，但是这并不等于不需要理解概念。
+广义上讲数据结构就是指一组数据的存储结构。算法就是操作数据的一组方法。
+狭义上讲是指某些著名的数据结构和算法，比如队列、栈、二分查找、动态规划等。
+二、数据结构和算法的关系大部分的书和教程都会把数据结构和算法这两个东西放到一起讲，这是因为数据结构和算法是相辅相成 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/5dd1b1a1.html" title="LLVM-Clang插件开发"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLVM-Clang插件开发"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5dd1b1a1.html" title="LLVM-Clang插件开发">LLVM-Clang插件开发</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-09-12T17:25:40.000Z" title="发表于 2018-09-13 01:25:40">2018-09-13</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">前言前面一篇博客介绍了LLVM相关内容，那现在就开始用学到的LLVM知识，做一下实践；
+–Clang插件开发
+
+
+一、插件目录
+在【clang/tools】源码目录下新建一个插件目录，叫做【ly-plugin】(自定义)
+
+ 
+
+在【 clang/tools/CMakeLists.txt】最后加入内容： add_clang_subdirectory(ly -plugin)，小括号里是插件目录名
+
+ 
+二、插件必要的文件
+在【ly-plugin】目录下新建一个【CMakeLists.txt】，文件内容是：add_llvm_loadable_module(LYPlugin LYPlugin.cpp)
+
+ 
+ 
+三、编写插件源码
+【LYPlugin.cpp】参考
+
+ 
+四、编译插件
+利用cmake生成的Xcode项目来编译插件（第一次编写完插件，需要利用cmake重新生成一下Xcode项目）
+插件源代码在【Sources/Loadable modules】目录下可以找到，这样就可以直接在Xcode里编写插件代码
+选择LYPlugin这个target进行编译，编译完会生成一个动态库文件
+
+ 
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/6d8a8bc2.html" title="LLVM"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LLVM"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/6d8a8bc2.html" title="LLVM">LLVM</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2018-09-12T14:28:48.000Z" title="发表于 2018-09-12 22:28:48">2018-09-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">一、什么是LLVM？
+
+官网：https://llvm.org/
+The LLVM Project is a collection of modular and reusable compiler and toolchain technologies.（LLVM项目是模块化、可重用的编译器以及工具链技术的集合。）
+美国计算机协会 (ACM) 将其2012年软件系统奖项颁给了LLVM，之前曾经获得此奖项的软件和技术包括：Java、Apache、 Mosaic、the World Wide Web、Smalltalk、UNIX、Eclipse等等
+创始人Chris Lattner，亦是Swift之父;
+有些文章把LLVM当做Low Level Virtual Machine（低级虚拟机）的缩写简称，官方描述如下:The name &quot;LLVM&quot; itself is not an acronym; it is the full name of the project.(LLVM这个名称本身不是首字母缩略词; 它是项目的全名)
+
+二、传统的编译器架构和LLVM架构
+
+不同的前 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/a3aab850.html" title="CocoaPods私有库使用Tips"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CocoaPods私有库使用Tips"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/a3aab850.html" title="CocoaPods私有库使用Tips">CocoaPods私有库使用Tips</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-11T15:15:15.000Z" title="发表于 2017-09-11 23:15:15">2017-09-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">1.pod lib lint 和 pod spec lint 命令的区别
+pod lib lint是只从本地验证你的pod能否通过验证;
+pod spec lint是从本地和远程验证你的pod能否通过验证;
+
+2.私有pod的验证使用pod spec lint去验证私有库能否通过验证时应该要添加--sources选项，不然会出现找不到repo的错误:
+1pod spec lint --sources=&#x27;私有仓库repo地址,https://github.com/CocoaPods/Specs&#x27;
+
+
+3.subspec为了让自己的Pod被导入时显示出良好的文件层划分，subspec是必须的。若subspec要依赖其它的subspec，则subspec的dependency后面接的不是目录路径，而是specA/specB这种spec关系；
+4.私有库引用私有库的问题在私有库引用了私有库的情况下，在验证和推送私有库的情况下都要加上所有的资源地址，不然Pod会默认从官方repo查询。
+12pod spec lint --sources=&#x27;私有仓库repo地址,ht ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/posts/759f5f2d.html" title="CocoaPods私有库Steps"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CocoaPods私有库Steps"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/759f5f2d.html" title="CocoaPods私有库Steps">CocoaPods私有库Steps</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-11T13:37:49.000Z" title="发表于 2017-09-11 21:37:49">2017-09-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/iOS/">iOS</a></span></div><div class="content">1.创建私有仓库先coding.net、OSChina、GitHub或者自己搭建的Git服务器上创建一个私有仓库，然后在本地添加仓库
+1pod repo add LYSpecs https://git.coding.net/CodingZero/LYSpecs.git
+
+
+
+2.创建私有库创建私有库模板
+1pod lib create VenderName
+
+
+第一个问题是问你选择Swift还是Objc构建项目。eg: ObjC 
+
+ 12hat language do you want to use?? [ Swift / ObjC ] &gt; ObjC
+
+第二个问题问你是否需要创建一个Demo项目eg: Yes
+
+ 12Would you like to include a demo application with your library? [ Yes / No ] &gt; Yes
+
+第三个问题让你是否选择一个测试框架eg: None
+
+ 12Which testing frameworks will you use? [ Specta / Kiwi / None ]&gt ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/posts/f573843c.html" title="SpringBoot 快速入门"><img class="post-bg" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringBoot 快速入门"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/f573843c.html" title="SpringBoot 快速入门">SpringBoot 快速入门</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2017-09-09T14:26:28.000Z" title="发表于 2017-09-09 22:26:28">2017-09-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Java/">Java</a></span></div><div class="content">一、简介Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域（rapid application development）成为领导者。
+
+
+二、Spring Boot 的主要优点：
+快速构建独立的Spring应用程序
+开箱即用，提供各种默认配置来简化项目配置
+内嵌式容器简化Web项目，嵌入Tomcat、Gradle，无需部署WAR包
+提供生产就绪功能，如指标，健康检查和外部配置
+简化Maven及Gradle配置
+没有冗余代码生成和XML配置的要求
+对主流开发框架和工具链做无配置集成
+
+三、系统环境
+Java 			1.8.0_112
+Spring Boot		1.5.4
+IntelliJ IDEA  2017.1.3
+
+四、快速构建项目1. 使用SPRING INITIALIZR工具生成基础项目1.1 打开浏览器：http://start.spring.io/
+1.2 选择构 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DeveloperLY</div><div class="author-info__description">一枚单线程程序员的分享地</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DeveloperLY"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">正在迁移博客中...</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/43e3f0a1.html" title="iOS 中使用 iconfont 替换 Assets 中的图标资源"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS 中使用 iconfont 替换 Assets 中的图标资源"/></a><div class="content"><a class="title" href="/posts/43e3f0a1.html" title="iOS 中使用 iconfont 替换 Assets 中的图标资源">iOS 中使用 iconfont 替换 Assets 中的图标资源</a><time datetime="2019-02-03T02:35:32.000Z" title="发表于 2019-02-03 10:35:32">2019-02-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/7ea64dc1.html" title="使用Mac自动操作制作@1x@2x@3x图片（切图）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Mac自动操作制作@1x@2x@3x图片（切图）"/></a><div class="content"><a class="title" href="/posts/7ea64dc1.html" title="使用Mac自动操作制作@1x@2x@3x图片（切图）">使用Mac自动操作制作@1x@2x@3x图片（切图）</a><time datetime="2019-01-20T13:17:09.000Z" title="发表于 2019-01-20 21:17:09">2019-01-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/5d5dacf3.html" title="TabBar 的 Item 按钮的像素大小"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TabBar 的 Item 按钮的像素大小"/></a><div class="content"><a class="title" href="/posts/5d5dacf3.html" title="TabBar 的 Item 按钮的像素大小">TabBar 的 Item 按钮的像素大小</a><time datetime="2019-01-20T12:07:40.000Z" title="发表于 2019-01-20 20:07:40">2019-01-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a1a87ec3.html" title="复杂度分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="复杂度分析"/></a><div class="content"><a class="title" href="/posts/a1a87ec3.html" title="复杂度分析">复杂度分析</a><time datetime="2018-12-30T02:30:35.000Z" title="发表于 2018-12-30 10:30:35">2018-12-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/f8580263.html" title="算法和数据结构"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法和数据结构"/></a><div class="content"><a class="title" href="/posts/f8580263.html" title="算法和数据结构">算法和数据结构</a><time datetime="2018-12-30T02:00:50.000Z" title="发表于 2018-12-30 10:00:50">2018-12-30</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+            </div>
+            <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Java/"><span class="card-category-list-name">Java</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/iOS/"><span class="card-category-list-name">iOS</span><span class="card-category-list-count">16</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%90%90%E6%A7%BD/"><span class="card-category-list-name">吐槽</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/"><span class="card-category-list-name">数据结构和算法</span><span class="card-category-list-count">2</span></a></li>
+            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/SpringBoot/" style="font-size: 1.1em; color: #999">SpringBoot</a> <a href="/tags/App%E4%B8%8A%E6%9E%B6/" style="font-size: 1.1em; color: #999">App上架</a> <a href="/tags/%E8%AF%81%E4%B9%A6/" style="font-size: 1.1em; color: #999">证书</a> <a href="/tags/LLVM/" style="font-size: 1.5em; color: #99a9bf">LLVM</a> <a href="/tags/App-%E7%98%A6%E8%BA%AB/" style="font-size: 1.1em; color: #999">App 瘦身</a> <a href="/tags/scrollsToTop/" style="font-size: 1.1em; color: #999">scrollsToTop</a> <a href="/tags/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/" style="font-size: 1.1em; color: #999">图片压缩</a> <a href="/tags/Automator/" style="font-size: 1.1em; color: #999">Automator</a> <a href="/tags/GitHub/" style="font-size: 1.1em; color: #999">GitHub</a> <a href="/tags/%E5%88%87%E5%9B%BE/" style="font-size: 1.1em; color: #999">切图</a> <a href="/tags/Xcode/" style="font-size: 1.1em; color: #999">Xcode</a> <a href="/tags/Hexo/" style="font-size: 1.1em; color: #999">Hexo</a> <a href="/tags/AppStore/" style="font-size: 1.5em; color: #99a9bf">AppStore</a> <a href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E3%80%81%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" style="font-size: 1.1em; color: #999">时间复杂度、空间复杂度</a> <a href="/tags/IPv6/" style="font-size: 1.1em; color: #999">IPv6</a> <a href="/tags/Disk-Image/" style="font-size: 1.1em; color: #999">Disk Image</a> <a href="/tags/UpLoad/" style="font-size: 1.1em; color: #999">UpLoad</a> <a href="/tags/UIScrollView/" style="font-size: 1.5em; color: #99a9bf">UIScrollView</a> <a href="/tags/Java/" style="font-size: 1.1em; color: #999">Java</a> <a href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" style="font-size: 1.1em; color: #999">插件开发</a> <a href="/tags/UI/" style="font-size: 1.5em; color: #99a9bf">UI</a> <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 1.1em; color: #999">面试</a> <a href="/tags/Unity-3D/" style="font-size: 1.1em; color: #999">Unity 3D</a> <a href="/tags/iOS%E5%BC%80%E5%8F%91/" style="font-size: 1.5em; color: #99a9bf">iOS开发</a> <a href="/tags/U3D/" style="font-size: 1.1em; color: #999">U3D</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%99%A8/" style="font-size: 1.5em; color: #99a9bf">编译器</a> <a href="/tags/iOS/" style="font-size: 1.5em; color: #99a9bf">iOS</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 1.5em; color: #99a9bf">算法</a> <a href="/tags/Clang/" style="font-size: 1.1em; color: #999">Clang</a> <a href="/tags/iconfont/" style="font-size: 1.1em; color: #999">iconfont</a> <a href="/tags/CocoaPods/" style="font-size: 1.5em; color: #99a9bf">CocoaPods</a> <a href="/tags/Unity/" style="font-size: 1.1em; color: #999">Unity</a> <a href="/tags/%E7%A7%81%E6%9C%89%E5%BA%93/" style="font-size: 1.5em; color: #99a9bf">私有库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 1.1em; color: #999">数据结构</a> <a href="/tags/pod/" style="font-size: 1.5em; color: #99a9bf">pod</a> <a href="/tags/%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95/" style="font-size: 1.1em; color: #999">真机调试</a> <a href="/tags/LYTopWindwo/" style="font-size: 1.1em; color: #999">LYTopWindwo</a> <a href="/tags/%E5%90%90%E6%A7%BD/" style="font-size: 1.1em; color: #999">吐槽</a> <a href="/tags/Objective-C/" style="font-size: 1.1em; color: #999">Objective-C</a> <a href="/tags/LYTopWindow/" style="font-size: 1.1em; color: #999">LYTopWindow</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span><a class="card-more-btn" href="/archives/" title="查看更多">
+    <i class="fas fa-angle-right"></i></a></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/02/"><span class="card-archive-list-date">二月 2019</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/01/"><span class="card-archive-list-date">一月 2019</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/12/"><span class="card-archive-list-date">十二月 2018</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2018/09/"><span class="card-archive-list-date">九月 2018</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2017/09/"><span class="card-archive-list-date">九月 2017</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/08/"><span class="card-archive-list-date">八月 2016</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/05/"><span class="card-archive-list-date">五月 2016</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2016/04/"><span class="card-archive-list-date">四月 2016</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">20</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-03-06T15:58:50.137Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By DeveloperLY</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
