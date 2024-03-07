@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Flutter 的性能分析和监控 | DeveloperLY's Blog</title><meta name="author" content="DeveloperLY"><meta name="copyright" content="DeveloperLY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、devTools 的使用devTools 是官方出的一套 Dart 和 Flutter 的性能调试工具，其核心是帮开发者定位 UI 或者 GPU 线程问题，从而协助开发者解决 Flutter App 的性能问题。在应用该工具之前，需要启动 App 调试功能。 打开 Flutter 项目，如果使用的是 Android Studio IDE，可以直接在工具栏中点击如下图所示的红色圈部分。 如果不是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flutter 的性能分析和监控">
+<meta property="og:url" content="hhttp://blog.developerly.net/posts/e6652508.html">
+<meta property="og:site_name" content="DeveloperLY&#39;s Blog">
+<meta property="og:description" content="一、devTools 的使用devTools 是官方出的一套 Dart 和 Flutter 的性能调试工具，其核心是帮开发者定位 UI 或者 GPU 线程问题，从而协助开发者解决 Flutter App 的性能问题。在应用该工具之前，需要启动 App 调试功能。 打开 Flutter 项目，如果使用的是 Android Studio IDE，可以直接在工具栏中点击如下图所示的红色圈部分。 如果不是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.dribbble.com/userupload/13335190/file/original-0ef648d61774ec1bc5677692fd11e609.jpg">
+<meta property="article:published_time" content="2023-08-19T12:08:31.000Z">
+<meta property="article:modified_time" content="2024-03-07T17:03:25.191Z">
+<meta property="article:author" content="DeveloperLY">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.dribbble.com/userupload/13335190/file/original-0ef648d61774ec1bc5677692fd11e609.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="hhttp://blog.developerly.net/posts/e6652508.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Flutter 的性能分析和监控',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-08 01:03:25'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="DeveloperLY's Blog"><span class="site-name">DeveloperLY's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Flutter 的性能分析和监控</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-19T12:08:31.000Z" title="发表于 2023-08-19 20:08:31">2023-08-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-07T17:03:25.191Z" title="更新于 2024-03-08 01:03:25">2024-03-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Flutter/">Flutter</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Flutter 的性能分析和监控"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="一、devTools-的使用"><a href="#一、devTools-的使用" class="headerlink" title="一、devTools 的使用"></a>一、devTools 的使用</h1><p>devTools 是官方出的一套 Dart 和 Flutter 的性能调试工具，其核心是帮开发者定位 UI 或者 GPU 线程问题，从而协助开发者解决 Flutter App 的性能问题。在应用该工具之前，需要启动 App 调试功能。</p>
+<p>打开 Flutter 项目，如果使用的是 Android Studio IDE，可以直接在工具栏中点击如下图所示的红色圈部分。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819001.png"></p>
+<p>如果不是在 Android Studio 中，需要按照下面的四个步骤启动 devTools 工具。</p>
+<p>1.使用下面命令启动 devTools 工具。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flutter pub global run devtools</span><br></pre></td></tr></table></figure>
+
+<p>2.运行成功后，会提示 devTools 访问的地址。打开访问地址后，可以看到如下图的界面，界面中需要输入一个 Flutter App 的监听地址。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819002.png"></p>
+<p>3.接下来需要获取 Flutter 运行的 WS 地址，重新运行项目（请注意不是热启动，需要停止运行，然后点击重新运行），启动成功后，在运行栏可以看到如下所示的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Launching lib/main.dart on iPhone 14 Pro Max in debug mode...</span><br><span class="line">Running Xcode build...</span><br><span class="line">Xcode build done.     </span><br><span class="line">Debug service listening on ws://127.0.0.1:51667/M2Fw4v3rtAc=/ws</span><br><span class="line">Syncing files to device iPhone 14 Pro Max...</span><br></pre></td></tr></table></figure>
+
+<p>4.将其中的 listening on 的地址输入到刚才 devTools 页面就可以了，打开页面后，可以看到下图所示的功能。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819003.png"></p>
+<p>接下来介绍下 devTools 功能，即上图中每个工具的作用。</p>
+<ul>
+<li><strong>Flutter Inspector</strong>，可以查看组件的布局信息，类似于前端的 Chrome 工具的 CSS 布局查看器，应用该功能可以快速定位布局问题。</li>
+<li><strong>Timeline</strong>，时间线事件图表，跟踪显示来自应用程序的所有事件。监听 Flutter App 在构建 UI 树，绘制界面以及其他（例如 HTTP 流量）事件等，并将监听到的事件所花费的时间，显示在时间轴上。</li>
+<li><strong>Memory</strong>，使用时间线的方式，展示 Flutter App 的内存变化，通过该工具可以定位内存泄漏的问题。</li>
+<li><strong>Performance</strong>，性能分析工具，可以通过录制界面操作，获取界面性能数据。该工具的主要用途还是在定位某个功能卡顿问题，例如我们发现主界面很卡顿，这时候就可以通过该工具录制首页加载过程，然后分析出具体性能异常逻辑。</li>
+<li><strong>Debugger</strong>，断点调试功能，和 IDE 上的断点调试是一样的。</li>
+<li><strong>Network</strong>，可以抓取网络请求，并分析返回数据，类似于前端 Chrome 的 Network 工具。</li>
+<li><strong>Logging</strong>，运行期间的日志显示。日志中包含：Dart 运行时的垃圾回收事件、Flutter 框架事件，比如创建帧的事件、应用的 stdout 和 stderr 和应用的自定义日志事件。</li>
+</ul>
+<h2 id="1-1-应用-Timeline-来做性能分析和优化"><a href="#1-1-应用-Timeline-来做性能分析和优化" class="headerlink" title="1.1 应用 Timeline 来做性能分析和优化"></a>1.1 应用 Timeline 来做性能分析和优化</h2><p>Timeline 会记录每一帧的绘制，每一帧绘制又包括 UI 线程构建图形树和 GPU 线程绘制图像两个过程。在应用开发完成后，我们可以使用 Timeline 工具来走一遍 App 所有页面，记录每一帧的性能耗时。请注意该功能最好是在外接实体机上进行测试，不然会出现数据相差较大。我们分为以下七个步骤来进行实践。</p>
+<ol>
+<li>连接实体调试机器，然后运行 flutter run –profile 启动 App。</li>
+<li>打开 devTools 工具，点击 Timeline 工具，点击 Clear 清空旧数据。</li>
+<li>可以在某个页面上进行一系列的基础操作，操作完成后，回到 devTools 中，点击 Refresh，这时候会有一个短暂的分析过程，分析完成后，你会看到下图所示的内容。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819004.png" alt="Timeline 性能柱状图
+"></li>
+<li>在界面中，你会看到浅蓝（ UI 线程耗时，小于 16.67ms）、深蓝（ GPU 耗时，小于 16.67 ms）、橘黄（ UI 线程耗时，大于 16.67 ms）和深红（ GPU 耗时，大于 16.67 ms）的柱状数据，浅蓝和橘黄都代表 UI 线程耗时，深蓝和深红都代表 GPU 耗时，在 UI 线程耗时和 GPU 耗时都小于 16.67 ms 时显示浅蓝和深蓝，而当 UI 线程耗时或者 GPU 耗时任意一个大于 16.67 ms 时，则显示橘黄和深红。</li>
+<li>当发现有橘黄和深红的柱状图时，则需要进行具体的分析，这时候只需要点击这部分柱状图，就可以看到下图所示的一个效果。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819005.png" alt="Timeline 单个数据分析图
+"></li>
+<li>如果 UI 线程耗时比较长，点击具体较长的柱状图，可以看到具体的火焰图。如下图所示，其中的宽度就代表执行的时间长度，宽度越长表明性能损耗越大，而这就是性能优化的部分。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819006.png" alt="UI 线程耗时分析
+"></li>
+<li>如果 GPU 耗时较长，则可以往下拉查看 GPU 页面绘制问题，如下图所示。<img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819007.png" alt="GPU 耗时分析
+"></li>
+</ol>
+<p>接下来我们就分别从 UI 线程问题和 GPU （ Raster ）来分析具体的性能问题。</p>
+<h2 id="1-2-UI-线程问题实践分析"><a href="#1-2-UI-线程问题实践分析" class="headerlink" title="1.2 UI 线程问题实践分析"></a>1.2 UI 线程问题实践分析</h2><p>如果出现橘黄色和深红色的柱状图时，我们需要单独分析这块的性能问题。大部分情况是因为在 Dart 中执行了比较耗时的函数，或者在组件树设计上没有注意性能导致的问题。这里介绍下可能会提升或者影响性能的几个关键点。</p>
+<ul>
+<li>不会发生任何变化的组件，使用 const ，减少绘制，例如我们的通用 loading 组件。</li>
+<li>减少组件绘制，这点就是我们之前提到的尽量减少有状态组件下的子组件，或者通过状态管理模块 Provider 来辅助管理状态。</li>
+<li>复杂业务 build 函数在代码逻辑中，避免复杂业务在 build 逻辑中去执行。</li>
+</ul>
+<h2 id="1-3-GPU（-Raster-）"><a href="#1-3-GPU（-Raster-）" class="headerlink" title="1.3 GPU（ Raster ）"></a>1.3 GPU（ Raster ）</h2><p>一般情况下都是较复杂的图片绘制产生的问题，比如说复杂的动效或者复杂的图片资源。上面的工具也不能完全帮你定位到异常的问题。需要根据实际的代码逻辑来分析，这点是比较困难的，只能排除法步步寻找问题点。Timeline 图只能协助我们去找到 GPU 存在性问题。</p>
+<p>在遇到 GPU 问题时，可以在 devTools 中的 Performance 打开 Performance Overlay 工具，打开后在真机或者虚拟机上就可以看到效果，当出现 GPU 性能问题时，会出现红色线条。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20230819/20230819008.png" alt="Performance Overlay"></p>
+<p>以上就是 devTools 的工具使用，通过这个工具可以大大提升我们定位问题的效率。</p>
+<h1 id="二、性能上报"><a href="#二、性能上报" class="headerlink" title="二、性能上报"></a>二、性能上报</h1><p>为了能够更好地分析和判断性能问题，我们有时候需要采集现网运行期间的一些性能数据，例如我们需要主要的两个指标：Crash 率和 FPS 数据。接下来我们主要介绍下如何计算和采集这两个数据的方法。</p>
+<p>由于这部分肯定会影响主线程的性能，因此我们将该计算和上报过程放入到一个新的线程去处理，避免影响主线程。这里就需要用到Isolate 线程进行双向的通信；</p>
+<h2 id="2-1-Crash-率"><a href="#2-1-Crash-率" class="headerlink" title="2.1 Crash 率"></a>2.1 Crash 率</h2><p>异常率的计算方法是需要根据手机机型和手机版本来进行分析，我们先制定如下数据指标：</p>
+<ul>
+<li>机型的 Crash 率 &#x3D; 机型的 Crash 量 &#x2F; 该机型页面访问量</li>
+<li>版本的 Crash 率 &#x3D; 版本的 Crash 量 &#x2F; 该版本页面的访问量</li>
+<li>版本机型的 Crash 率 &#x3D; 机型版本的 Crash 量 &#x2F; 该机型特定版本的访问量</li>
+</ul>
+<p>根据上面的计算方式，我们需要增加一些数据上报，主要包括：机型、版本、页面名称、Crash 情况。</p>
+<h2 id="2-2-FPS"><a href="#2-2-FPS" class="headerlink" title="2.2 FPS"></a>2.2 FPS</h2><p>计算 FPS 的逻辑相对来说较复杂一些，首先需要使用 Flutter 的 SchedulerBinding.instance.addTimingsCallback 函数来获取每一帧耗时，这段代码主要是在 Flutter 绘制完成每一帧后都会进行回调处理，通过回调的方式可以采集到每一帧的耗时信息，具体代码逻辑如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="language-markdown">启动监听数据 </span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> start() <span class="keyword">async</span>&#123; </span><br><span class="line">  deviceInfo = <span class="keyword">await</span> IsolateHandle.getDeviceInfo(); </span><br><span class="line">  SchedulerBinding.instance.addTimingsCallback( </span><br><span class="line">      Report.onReportTimings </span><br><span class="line">  ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在 onReportTimings 中将每一帧数据分别保存到 frames 和 routerFrames ，代码如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="language-markdown">数据处理 </span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> onReportTimings(<span class="built_in">List</span>&lt;FrameTiming&gt; timings) &#123; </span><br><span class="line">  <span class="keyword">for</span> (FrameTiming timing <span class="keyword">in</span> timings) &#123; </span><br><span class="line">    frames.addFirst(timing); </span><br><span class="line">    routerFrames.addFirst(timing); </span><br><span class="line">  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>routerFrames 为当前页面路由的帧耗时的队列，frames 为所有帧耗时的队列。有了绘制的每一帧数据后，我们再将数据传递到其他线程进行计算，这里会传递到 IsolateHandle 的 calculateFps 方法，我们具体看下这个方法的计算逻辑。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="language-markdown">计算当个页面的 fps </span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> isolateCalculateFps( </span><br><span class="line">    ListQueue&lt;FrameTiming&gt; calculateList, </span><br><span class="line">    <span class="built_in">String</span> routerName, </span><br><span class="line">    <span class="built_in">String</span> deviceInfo </span><br><span class="line">    ) &#123; </span><br><span class="line">  <span class="keyword">if</span>(calculateList == <span class="keyword">null</span>)&#123; </span><br><span class="line">    <span class="keyword">return</span>; </span><br><span class="line">  &#125; </span><br><span class="line">  <span class="built_in">String</span> fpsStr = <span class="number">60.</span>toStringAsFixed(<span class="number">3</span>); </span><br><span class="line">  <span class="built_in">int</span> lostNum = <span class="number">0</span>; </span><br><span class="line">  <span class="comment">// flutter 标准渲染频率 </span></span><br><span class="line">  <span class="built_in">double</span> standardFps = <span class="number">1000</span>/<span class="number">60</span>; </span><br><span class="line">  <span class="comment">// 计算多少出现掉帧情况，请注意如果是 33秒，其掉帧为2，用34/16。67下取整。 </span></span><br><span class="line">  calculateList.forEach((frame) &#123; </span><br><span class="line">    <span class="keyword">if</span>(frame.totalSpan.inMilliseconds &gt; standardFps) &#123; <span class="comment">// 超出 16ms 的帧 </span></span><br><span class="line">      lostNum = lostNum + ( </span><br><span class="line">          frame.totalSpan.inMilliseconds/standardFps </span><br><span class="line">      ).floor(); </span><br><span class="line">    &#125; </span><br><span class="line">  &#125;); </span><br><span class="line">  <span class="keyword">if</span>(calculateList.length + lostNum &gt; <span class="number">0</span>) &#123; <span class="comment">// 尽量避免分母为0情况 </span></span><br><span class="line">    <span class="built_in">double</span> fps = ( <span class="number">60</span> * calculateList.length ) / </span><br><span class="line">        ( calculateList.length + lostNum ); </span><br><span class="line">    fpsStr = fps.toStringAsFixed(<span class="number">3</span>); </span><br><span class="line">  &#125; </span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&#x27;<span class="subst">$&#123;deviceInfo&#125;</span>\t<span class="subst">$&#123;fpsStr&#125;</span>&#x27;</span>); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中，首先获取标准的一帧绘制时间 16.67 ms（目前这部分是hardcode 60 HZ，后续需要匹配 120 HZ），然后分别计算每一帧的渲染耗时情况，并与 16.67 ms 进行对比，得到掉帧数量。计算掉帧的方式是，用耗时时间除以 16.67 ms 下取整就代表掉帧数量。比如耗时 34 ms，代表掉帧了 2 帧，因为 34 &#x2F; 16.67 &#x3D; 2.039。最后用以下公式来计算 FPS 。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(list.length * <span class="number">60</span>) / (list.length + lostNum)</span><br></pre></td></tr></table></figure>
+
+<p>FPS 和 PV 一样将数据上报到服务端，后续在服务端进行分析。</p>
+<p>以上就完成了所有的性能上报功能，接下来我们在某个页面进行尝试，这里选择之前侧边栏的“单图片信息”。</p>
+<h2 id="2-3-应用"><a href="#2-3-应用" class="headerlink" title="2.3 应用"></a>2.3 应用</h2><p>在该类中的 initState 中上报 PV ，并在页面开始加载前，将帧放入到具体的 routerFrames 中，代码如下：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@override</span> </span><br><span class="line"><span class="keyword">void</span> initState() &#123; </span><br><span class="line">  <span class="keyword">super</span>.initState(); </span><br><span class="line">  <span class="comment">/// <span class="language-markdown">开始记录fps </span></span></span><br><span class="line">  Report.startRecord(<span class="string">&#x27;<span class="subst">$&#123;<span class="keyword">this</span>.runtimeType&#125;</span>&#x27;</span>); </span><br><span class="line">  indexPos = <span class="number">0</span>; </span><br><span class="line">  <span class="comment">// 拉取推荐内容 </span></span><br><span class="line">  ApiContentIndex.getRecommendList().then((retInfo) &#123; </span><br><span class="line">    <span class="keyword">if</span> (retInfo.ret != <span class="number">0</span>) &#123; </span><br><span class="line">      <span class="comment">// 判断返回是否正确 </span></span><br><span class="line">      <span class="keyword">return</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    setState(() &#123; </span><br><span class="line">      contentList = retInfo.data; </span><br><span class="line">    &#125;); </span><br><span class="line">  &#125;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中<code>Report.startRecord(&#39;$&#123;this.runtimeType&#125;&#39;); </code>就是上报 PV ，并开始记录 routerFrames ，这里通过 this.runtimeType 可以获得具体的类名。FPS 则在页面最后一帧加载完成后回调，然后在回调中计算 FPS 相关数据。在 Flutter 提供了接收帧绘制完成后回调的方法，需要在 build 逻辑中增加下面的代码。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WidgetsBinding.instance.addPostFrameCallback( </span><br><span class="line">        (_) =&gt; Report.endRecord(<span class="string">&#x27;<span class="subst">$&#123;<span class="keyword">this</span>.runtimeType&#125;</span>&#x27;</span>) </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>然后在 Report.endRecord 调用其他线程函数，计算 FPS，并需要清空 routerFrames 。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// <span class="language-markdown">结束并显示数据 </span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> endRecord(<span class="built_in">String</span> routerName) &#123; </span><br><span class="line">  IsolateHandle.calculateFps(routerFrames, routerName, deviceInfo); </span><br><span class="line">  routerFrames.clear(); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完成后就可以在虚拟机或者真机上进行模拟测试了，不过这里的 FPS 数据不一定完全准确，后续需要进一步优化。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="hhttp://blog.developerly.net">DeveloperLY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="hhttp://blog.developerly.net/posts/e6652508.html">hhttp://blog.developerly.net/posts/e6652508.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="hhttp://blog.developerly.net" target="_blank">DeveloperLY's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.dribbble.com/userupload/13335190/file/original-0ef648d61774ec1bc5677692fd11e609.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/pay/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pay/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/pay/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pay/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/c21d8389.html" title="Flutter生命周期和使用场景"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629272970286L-SkQqRjFeo7iJS6rSVNi" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Flutter生命周期和使用场景</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DeveloperLY</div><div class="author-info__description">一枚单线程程序员的分享地</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">56</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DeveloperLY"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">正在迁移博客中...</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81devTools-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">一、devTools 的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%BA%94%E7%94%A8-Timeline-%E6%9D%A5%E5%81%9A%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%92%8C%E4%BC%98%E5%8C%96"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 应用 Timeline 来做性能分析和优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-UI-%E7%BA%BF%E7%A8%8B%E9%97%AE%E9%A2%98%E5%AE%9E%E8%B7%B5%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 UI 线程问题实践分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-GPU%EF%BC%88-Raster-%EF%BC%89"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 GPU（ Raster ）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%80%A7%E8%83%BD%E4%B8%8A%E6%8A%A5"><span class="toc-number">2.</span> <span class="toc-text">二、性能上报</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Crash-%E7%8E%87"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Crash 率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-FPS"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 FPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%BA%94%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 应用</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/e6652508.html" title="Flutter 的性能分析和监控"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.dribbble.com/userupload/13335190/file/original-0ef648d61774ec1bc5677692fd11e609.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flutter 的性能分析和监控"/></a><div class="content"><a class="title" href="/posts/e6652508.html" title="Flutter 的性能分析和监控">Flutter 的性能分析和监控</a><time datetime="2023-08-19T12:08:31.000Z" title="发表于 2023-08-19 20:08:31">2023-08-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/c21d8389.html" title="Flutter生命周期和使用场景"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629272970286L-SkQqRjFeo7iJS6rSVNi" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Flutter生命周期和使用场景"/></a><div class="content"><a class="title" href="/posts/c21d8389.html" title="Flutter生命周期和使用场景">Flutter生命周期和使用场景</a><time datetime="2022-08-07T04:38:01.000Z" title="发表于 2022-08-07 12:38:01">2022-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/66d3f26b.html" title="WKWebView 白屏检测"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629272970286L-SkQqRjFeo7iJS6rSVNi" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WKWebView 白屏检测"/></a><div class="content"><a class="title" href="/posts/66d3f26b.html" title="WKWebView 白屏检测">WKWebView 白屏检测</a><time datetime="2022-03-07T09:59:23.000Z" title="发表于 2022-03-07 17:59:23">2022-03-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/29dc6fe8.html" title="Docker常用命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629274645047QKNaDHbxuAE9N-XltguU2" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker常用命令"/></a><div class="content"><a class="title" href="/posts/29dc6fe8.html" title="Docker常用命令">Docker常用命令</a><time datetime="2021-08-17T10:11:41.000Z" title="发表于 2021-08-17 18:11:41">2021-08-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/feb46aa6.html" title="使用 Charles 进行抓包操作"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/images/20210618/20210618000.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用 Charles 进行抓包操作"/></a><div class="content"><a class="title" href="/posts/feb46aa6.html" title="使用 Charles 进行抓包操作">使用 Charles 进行抓包操作</a><time datetime="2021-06-18T02:30:23.000Z" title="发表于 2021-06-18 10:30:23">2021-06-18</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By DeveloperLY</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
