@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>使用SwiftUI开发安卓App</title>
+      <link href="/posts/380d7a3e.html"/>
+      <url>/posts/380d7a3e.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p>是的！你没看错真的是用 Swift 开发原生安卓App，已经有开发者研究出<br>使用 SwiftUI 开发安卓App，并且出了尝鲜版，今天就来介绍一下 Skip 的框架，并且通过 Skip 框架使用 SwiftUI 开发安卓APP。</p><h1 id="二、安装-Skip"><a href="#二、安装-Skip" class="headerlink" title="二、安装 Skip"></a>二、安装 Skip</h1><h2 id="2-1-系统要求"><a href="#2-1-系统要求" class="headerlink" title="2.1 系统要求"></a>2.1 系统要求</h2><p>MacOS: 13+<br>Xcode: 15+<br>Android Studio: 2023</p><h2 id="2-2-安装"><a href="#2-2-安装" class="headerlink" title="2.2 安装"></a>2.2 安装</h2><p>使用  Homebrew 安装 Skip，如果没有 Homebrew ，请先安装，</p><p>Homebrew 官网：<a href="https://brew.sh/">https://brew.sh/</a></p><p>打开终端，运行Terminal命令安装Skip:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install skiptools/skip/skip</span><br></pre></td></tr></table></figure><blockquote><p>这行命令将下载并安装<code>skip</code>工具本身，以及构建和测试<code>Kotlin/Android</code>端应用程序所需的<code>gradle</code>和<code>JDK </code>依赖项。</p></blockquote><p>安装完成后，运行下面命令检查是否满足开发先决条件：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip checkup</span><br></pre></td></tr></table></figure><p>如果<code>checkup</code>失败，执行</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip checkup --verbose</span><br></pre></td></tr></table></figure><p>以获取更多详细信息，并查看<a href="https://skip.tools/docs/faq/">FAQ</a>以获取常见解决方案。</p><p>如果<code>checkup</code>通过。</p><p><img src="https://assets.skip.tools/intro/skip_checkup.png" alt="skip checkup"></p><p>如上图显示，那就可以开始使用Skip进行开发了!</p><h1 id="三、创建-App"><a href="#三、创建-App" class="headerlink" title="三、创建 App"></a>三、创建 App</h1><p>打开终端，用命令创建一个双平台应用项目：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip init --appid=bundle.id project-name AppName</span><br></pre></td></tr></table></figure><p>通过<code>--open-xcode</code>参数可以立即在Xcode中打开项目。例如:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip init --open-xcode --appid=com.xyz.HelloSkip hello-skip HelloSkip</span><br></pre></td></tr></table></figure><p>创建成功后它会自动打开 <code>Xcode</code> 以启动这个项目，在本地创建一个 <code>hello-skip/ </code>文件夹，其中包含一个新的 <code>SwiftPM</code> 包，其中包含一个名为 <code>HelloSkip</code> 的模块，以及名为 <code>Darwin</code> 和 <code>Android</code> 的文件夹以及共享 <code>Skip.env</code> 应用配置文件。该 <code>Darwin</code> 文件夹将包含一个 <code>HelloSkip.xcodeproj</code>的项目，可以在 <code>Xcode</code> 中打开。</p><h1 id="四、创建并打开-Android-模拟器"><a href="#四、创建并打开-Android-模拟器" class="headerlink" title="四、创建并打开 Android 模拟器"></a>四、创建并打开 Android 模拟器</h1><p>启动 <code>Android Studio</code> 并打开 <code>Virtual Device Manager</code> 创建一个新的模拟器（例如，“<code>Pixel 6</code>”），然后启动这个模拟器：</p><p><img src="https://assets.skip.tools/intro/device_manager.png" alt="创建安卓模拟器"></p><h1 id="五、运行项目"><a href="#五、运行项目" class="headerlink" title="五、运行项目"></a>五、运行项目</h1><p>一旦Android模拟器开始运行，在Xcode中选择并运行HelloSkip目标。第一次构建将花费一些时间来编译Skip库，并且可能会提示您一个对话框，以确认您信任Skip插件。</p><p>一旦构建和运行操作完成，SwiftUI应用程序将在选定的iOS模拟器中打开，同时编译的应用程序将在当前运行的Android模拟器中启动。</p><p><img src="https://assets.skip.tools/intro/skip_xcode.png" alt="运行项目"></p><p>现在，就可以在 <code>Xcode</code> 中，直接使用 <code>SwiftUI</code> 开发<code>iOS + Andorid</code>项目。</p><p>更多 <code>Skip</code> 相关，请访问官网了解：<a href="https://skip.tools/">https://skip.tools/</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SwiftUI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Flutter 的性能分析和监控</title>
       <link href="/posts/e6652508.html"/>
       <url>/posts/e6652508.html</url>
