@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用 Charles 进行抓包操作 | DeveloperLY's Blog</title><meta name="author" content="DeveloperLY"><meta name="copyright" content="DeveloperLY"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一、Charles 工作原理下图是 Charles 官方网站上的一个 Charles 工作原理示意图。  由图可见，任何通过客户端（APP&#x2F;Web）发送给后端的请求，都将被 Charles 截获并转发给后端。同样，任何的后端返回值，也会经由 Charles 转发给客户端（APP&#x2F;Web）。 由此可见，Charles 的工作原理类似于中间人代理，即任何客户端和服务端的通信都会经过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 Charles 进行抓包操作">
+<meta property="og:url" content="hhttp://blog.developerly.net/posts/feb46aa6.html">
+<meta property="og:site_name" content="DeveloperLY&#39;s Blog">
+<meta property="og:description" content="一、Charles 工作原理下图是 Charles 官方网站上的一个 Charles 工作原理示意图。  由图可见，任何通过客户端（APP&#x2F;Web）发送给后端的请求，都将被 Charles 截获并转发给后端。同样，任何的后端返回值，也会经由 Charles 转发给客户端（APP&#x2F;Web）。 由此可见，Charles 的工作原理类似于中间人代理，即任何客户端和服务端的通信都会经过">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://avatars3.githubusercontent.com/u/9148980?s=460&v=4">
+<meta property="article:published_time" content="2021-06-18T02:30:23.000Z">
+<meta property="article:modified_time" content="2024-03-07T14:16:09.631Z">
+<meta property="article:author" content="DeveloperLY">
+<meta property="article:tag" content="抓包">
+<meta property="article:tag" content="Charles">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://avatars3.githubusercontent.com/u/9148980?s=460&v=4"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="hhttp://blog.developerly.net/posts/feb46aa6.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用 Charles 进行抓包操作',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-07 22:16:09'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/progress_bar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="DeveloperLY's Blog"><span class="site-name">DeveloperLY's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">使用 Charles 进行抓包操作</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-18T02:30:23.000Z" title="发表于 2021-06-18 10:30:23">2021-06-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-07T14:16:09.631Z" title="更新于 2024-03-07 22:16:09">2024-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用 Charles 进行抓包操作"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><h1 id="一、Charles-工作原理"><a href="#一、Charles-工作原理" class="headerlink" title="一、Charles 工作原理"></a>一、Charles 工作原理</h1><p>下图是 Charles 官方网站上的一个 Charles 工作原理示意图。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.wp.com/www.testeffective.com/wp-content/uploads/2017/02/request_response_flow.png"></p>
+<p>由图可见，任何通过客户端（APP&#x2F;Web）发送给后端的请求，都将被 Charles 截获并转发给后端。同样，任何的后端返回值，也会经由 Charles 转发给客户端（APP&#x2F;Web）。</p>
+<p>由此可见，Charles 的工作原理类似于中间人代理，即任何客户端和服务端的通信都会经过 Charles，于是 Charles 便可以拦截来自客户端和服务端的任何请求，并进行修改。</p>
+<h1 id="二、搭建代理环境"><a href="#二、搭建代理环境" class="headerlink" title="二、搭建代理环境"></a>二、搭建代理环境</h1><p>首先去官网下载 Charles 并且安装。</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://www.charlesproxy.com/">https://www.charlesproxy.com</a></p>
+<h2 id="2-1-Web-端"><a href="#2-1-Web-端" class="headerlink" title="2.1 Web 端"></a>2.1 Web 端</h2><p>安装好 Charles 后， 首先去安装根证书。根证书的位置在 Help–&gt; SSL Proxying –&gt; Install Charles Root Certificate。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618001.png"></p>
+<p>证书安装后，点击 Charles 的菜单， 选择 Proxy–&gt;macOS Proxy.</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618002.png"></p>
+<p>此时，在浏览器里访问网页的时候，就可以在 Charles 里看到网络请求了。</p>
+<p>当前绝大多数的软件和网页都是 HTTPS 协议了，如果想抓包 HTTPS 的请求，则需要通过 Charles 的菜单 Proxy–&gt;SSL Proxying Settings 来进行设置。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618003.png"></p>
+<p>在弹出的对话框中，我们可以进行如下操作：<br>勾选<code> Enable SSL Proxying</code>，并点击 Add 按钮，再编辑如下。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618004.png"></p>
+<p>Host 填*，Port 填写 443，这样就可以抓取 HTTPS 协议的请求了。</p>
+<h2 id="2-2-App-端"><a href="#2-2-App-端" class="headerlink" title="2.2 App 端"></a>2.2 App 端</h2><p>手机端使用 Charles 需要多几步配置。</p>
+<ul>
+<li>菜单 Proxy–&gt;Proxy Settings </li>
+<li>填入代理端口 8888（也可以自定义填其他端口）；</li>
+<li>勾上Enable transparent HTTP proxying；</li>
+<li>勾选 Support HTTP&#x2F;2。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618005.png"></p>
+<p>确定手机端代理地址。</p>
+<p>通过点击 Charles 的菜单help–&gt;SSL Proxying–&gt; Install Charles Root Ceriticate On a Mobile Device or Remote Browser：，然后切换到手机端，根据以下图片进行操作，具体步骤为：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618006.png"></p>
+<p>在手机端，通过浏览器访问网页：chls.pro&#x2F;ssl，并下载安装证书。</p>
+<p>设置网络代理的值跟上图中一致。</p>
+<p>这样就可以开始抓包了。</p>
+<p><em>注意：</em>有些设备特别是 Android 设备无法直接安装下载的证书，需要进入到设置-&gt;安全-&gt;凭据存储 -&gt;从存储设备安装证书。</p>
+<h1 id="三、接口过滤、拦截和修改"><a href="#三、接口过滤、拦截和修改" class="headerlink" title="三、接口过滤、拦截和修改"></a>三、接口过滤、拦截和修改</h1><p>按以上配置好后，我们就可以在 Charles 面板中看到所有的网络请求。</p>
+<h2 id="3-1-过滤接口请求"><a href="#3-1-过滤接口请求" class="headerlink" title="3.1 过滤接口请求"></a>3.1 过滤接口请求</h2><p>因为所有的网络请求都会被抓取，那么信息太多也会造成干扰，所以可以过滤接口的请求。过滤接口的请求方式有 2 种。</p>
+<h3 id="3-1-1-直接过滤"><a href="#3-1-1-直接过滤" class="headerlink" title="3.1.1 直接过滤"></a>3.1.1 直接过滤</h3><p>直接过滤很简单，直接在 Charles 的 Filter 这栏中填写你要过滤的关键字即可。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618007.png"></p>
+<h3 id="3-1-2-通过菜单-Recording-Settings-设置"><a href="#3-1-2-通过菜单-Recording-Settings-设置" class="headerlink" title="3.1.2 通过菜单 Recording Settings 设置"></a>3.1.2 通过菜单 Recording Settings 设置</h3><p>首先，通过 Charles 菜单选择 Proxy–&gt;Recording Settings。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618008.png"></p>
+<p>然后在弹出的对话框中，选择 Include， 然后点击 Add 按钮，并按照你的需求设置 Filter。</p>
+<p><em>注意：</em>如果你什么都不填写，就表示全部符合条件。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618009.png"></p>
+<p>通过上述设置，只有网站域名为 baidu.com 的数据才会被抓取，我们根据自己需要更改筛选条件即可。</p>
+<h2 id="3-2-动态修改请求数据"><a href="#3-2-动态修改请求数据" class="headerlink" title="3.2 动态修改请求数据"></a>3.2 动态修改请求数据</h2><p>当想要修改发送给服务端的数据时，最简单的方式就是找到这个请求，然后鼠标右键，并选择 Breakpoints。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618010.png"></p>
+<p>当再次请求被触发时，它就会被拦截。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618011.png"></p>
+<p>此时，点击 EditRequest，将会看到这个请求的所有参数，同时你可以直接进行更改后点击 Execute 让它执行</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618012.png"></p>
+<p>点击 Execute 后，请求就会被发送。同时还可以对服务端返回的数据进行修改。</p>
+<p>点击 Edit Response，选择 JSON Text 标签，即可对请求的各项返回进行更改。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618013.png"></p>
+<p>打断点更改网络请求是 Charles 最常用的一个方法，在实践中，当测试版本升级，模拟接口返回错误时就会用到打断点。</p>
+<p>但是如果接口太多，一个个的打断点的话，这样就很浪费时间了。<br>所以我们可以自定义 BreakPoint Settings。</p>
+<p>方法如下：</p>
+<p>菜单栏选择 Proxy–&gt;BreakPoint Settings。<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618014.png"></p>
+<p>然后在 Breaking Setting 中，勾选<code>Enable BreakPoints</code>，然后点击 Add 按钮，添加对某个请求的断点设置如下。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618015.png"></p>
+<p>我们可以根据需求，自己定义要抓取的请求地址；并且可以通过勾选 Request、Reponse 的方式来决定是只更改发往服务端的请求数据（勾选 Request 即可）。</p>
+<h1 id="四、远程映射"><a href="#四、远程映射" class="headerlink" title="四、远程映射"></a>四、远程映射</h1><p>通过 Breakpoint 的方式进行修改请求数据虽然有效，但是修改请求这个操作需要人工干预，需要花费时间。再者，在测试时有可能接口返回，你已经提前知道了，那么就不需要先请求再更改数据，可以准备好返回数据直接进行模拟。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618016.png"></p>
+<p>方式为点击 Tools –&gt; Map Local，然后在弹出的对话框中，勾选“Enable Map Local”，接着设置我们要覆盖的请求。</p>
+<p><em>注意：</em>Map From 是我们原始请求。Map To 是你期望的结果，这个结果我们可以放在本地文件中，以 Text 或者 Json 的格式保持都可以。当你使用 Map Local 后，当有目标请求发生时，Charles 直接将你提供的文件内容当做返回值返回。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618017.png"></p>
+<p>远程映射常常用于客户端或者服务端，对返回的时间有超时判断，或者需要更改太多服务端返回值时使用。 毕竟一个个更改接口返回值需要花费时间，而由于超时时间非常短，等你改完再去执行，接口就直接超时了，这个时候就需要用到远程映射来直接更改。</p>
+<h1 id="四、慢网络模拟"><a href="#四、慢网络模拟" class="headerlink" title="四、慢网络模拟"></a>四、慢网络模拟</h1><p>测试时模拟各自不同网络速度的情况也比较常见，Charles 可以轻松做到慢网络模拟。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618018.png"></p>
+<p>从菜单 Porxy–&gt;Throttle Settings 进入，先通过 Add 添加你要进行网络速度限制的站点，然后勾选<code>Enable Throttling</code>，选择<code>Throttle preset</code>，这个时候会看到不同的网络速度情况，可以根据需要选择，即可完成网络速度限制。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618019.png"></p>
+<h1 id="五、微服务分支测试"><a href="#五、微服务分支测试" class="headerlink" title="五、微服务分支测试"></a>五、微服务分支测试</h1><p>在采用微服务架构后，我们就需要对不同版本的微服务分支进行测试，那么这就有必要进行分支测试。在当下，分支测试通常都是根据 Header 进行区分。既然如此，我们就可以给指定的请求添加 Header，以 Charles 也可以进行微服务分支测试，方式如下：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618020.png"></p>
+<p>菜单 Tools -&gt; Rewrite，然后勾选<code>Enable Rewrite</code>、<code>Debug in Error Log</code>，点击 Add，并在右上的 Location 这个栏目下，点击 Add。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618021.png"></p>
+<p>在弹出的对话框中， Host 输入*，点击 OK。</p>
+<p>输入* 代表任何地址都将被 Rewrite。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618022.png"></p>
+<p>然后继续点击下图中的 Add 按钮。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618023.png"></p>
+<p>在下面的图中配置 Rewrite 的规则。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618024.png"></p>
+<p>其中，Type 的值是个下拉列表， 选择 add Header，where 勾选 Request。</p>
+<p>然后在下方 Replace 栏目，输入想增加的 header 的 key 和 value，保存即可。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618025.png"></p>
+<p>通过这种方式，可以对微服务的不同分支进行测试。</p>
+<h1 id="六、简单接口并发测试"><a href="#六、简单接口并发测试" class="headerlink" title="六、简单接口并发测试"></a>六、简单接口并发测试</h1><p>Charles 还可以做接口并发。针对某个接口，假设我们想测试其基本的性能，可以直接选择那个接口，然后右键选择 Repeat Advanced。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618026.png"></p>
+<p>此时，会弹出设置的框让我们选择，其中：</p>
+<ul>
+<li>Iterations：是并发轮次数，进行多少轮次的测试。</li>
+<li>Concurrency：是并发线程数，每轮测试几个请求同时发。</li>
+<li>Repeat delay：可设置轮次之间的间隔，以毫秒计算。</li>
+</ul>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618027.png"></p>
+<p>点击确定。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618028.png"></p>
+<p>我们会看到，所有的请求已经发出来了。通过这种方式，压力就产生了，我们可以观察服务端的响应时间来判断起基本的性能是否达标。</p>
+<h1 id="七、Charles-操作常见问题"><a href="#七、Charles-操作常见问题" class="headerlink" title="七、Charles 操作常见问题"></a>七、Charles 操作常见问题</h1><p>Q.:在抓https&#x2F;http2.0协议请求时，Request和Response显示乱码</p>
+<p>A:<br>第一步：点击 【工具栏–&gt;Proxy–&gt;SSL Proxying Settings…】<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618029.png"><br>第二步：配置请求的域名和端口号，*表示任意<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/../images/20210618/20210618030.png"></p>
+<p>Q：iOS 上证书安装了，但是无法抓包，为什么？</p>
+<p>A：检查</p>
+<ol>
+<li>检查是否信任该证书。 在手机设置-&gt;通用-&gt;关于本机-&gt;证书信任设置中信任。</li>
+<li>通用-&gt;描述文件与设备管理，选中安装的配置文件，并验证。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="hhttp://blog.developerly.net">DeveloperLY</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="hhttp://blog.developerly.net/posts/feb46aa6.html">hhttp://blog.developerly.net/posts/feb46aa6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="hhttp://blog.developerly.net" target="_blank">DeveloperLY's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8A%93%E5%8C%85/">抓包</a><a class="post-meta__tags" href="/tags/Charles/">Charles</a></div><div class="post_share"><div class="social-share" data-image="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/pay/wechat.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pay/wechat.jpg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="/img/pay/alipay.jpg" target="_blank"><img class="post-qr-code-img" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/pay/alipay.jpg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/29dc6fe8.html" title="Docker常用命令"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_7QQkKffg6Owafj_2LCtvh" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Docker常用命令</div></div></a></div><div class="next-post pull-right"><a href="/posts/a0e9a4da.html" title="iOS图片大小修改和拼接长图"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629271197019sy7vkpAHxwcSGeeiBGBpm" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">iOS图片大小修改和拼接长图</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://avatars3.githubusercontent.com/u/9148980?s=460&amp;v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">DeveloperLY</div><div class="author-info__description">一枚单线程程序员的分享地</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">55</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/DeveloperLY"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">正在迁移博客中...</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Charles-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">一、Charles 工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%90%AD%E5%BB%BA%E4%BB%A3%E7%90%86%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">二、搭建代理环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Web-%E7%AB%AF"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Web 端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-App-%E7%AB%AF"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 App 端</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8E%A5%E5%8F%A3%E8%BF%87%E6%BB%A4%E3%80%81%E6%8B%A6%E6%88%AA%E5%92%8C%E4%BF%AE%E6%94%B9"><span class="toc-number">3.</span> <span class="toc-text">三、接口过滤、拦截和修改</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%BF%87%E6%BB%A4%E6%8E%A5%E5%8F%A3%E8%AF%B7%E6%B1%82"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 过滤接口请求</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E7%9B%B4%E6%8E%A5%E8%BF%87%E6%BB%A4"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 直接过滤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-%E9%80%9A%E8%BF%87%E8%8F%9C%E5%8D%95-Recording-Settings-%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 通过菜单 Recording Settings 设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 动态修改请求数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E8%BF%9C%E7%A8%8B%E6%98%A0%E5%B0%84"><span class="toc-number">4.</span> <span class="toc-text">四、远程映射</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%85%A2%E7%BD%91%E7%BB%9C%E6%A8%A1%E6%8B%9F"><span class="toc-number">5.</span> <span class="toc-text">四、慢网络模拟</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E6%94%AF%E6%B5%8B%E8%AF%95"><span class="toc-number">6.</span> <span class="toc-text">五、微服务分支测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%AE%80%E5%8D%95%E6%8E%A5%E5%8F%A3%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95"><span class="toc-number">7.</span> <span class="toc-text">六、简单接口并发测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81Charles-%E6%93%8D%E4%BD%9C%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">8.</span> <span class="toc-text">七、Charles 操作常见问题</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/66d3f26b.html" title="WKWebView 白屏检测"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629274645047QKNaDHbxuAE9N-XltguU2" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WKWebView 白屏检测"/></a><div class="content"><a class="title" href="/posts/66d3f26b.html" title="WKWebView 白屏检测">WKWebView 白屏检测</a><time datetime="2022-03-07T09:59:23.000Z" title="发表于 2022-03-07 17:59:23">2022-03-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/29dc6fe8.html" title="Docker常用命令"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_7QQkKffg6Owafj_2LCtvh" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker常用命令"/></a><div class="content"><a class="title" href="/posts/29dc6fe8.html" title="Docker常用命令">Docker常用命令</a><time datetime="2021-08-17T10:11:41.000Z" title="发表于 2021-08-17 18:11:41">2021-08-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/feb46aa6.html" title="使用 Charles 进行抓包操作"><div style="background: ![cover](/images/20210618/20210618000.png)"></div></a><div class="content"><a class="title" href="/posts/feb46aa6.html" title="使用 Charles 进行抓包操作">使用 Charles 进行抓包操作</a><time datetime="2021-06-18T02:30:23.000Z" title="发表于 2021-06-18 10:30:23">2021-06-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a0e9a4da.html" title="iOS图片大小修改和拼接长图"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://image.meiye.art/pic_1629271197019sy7vkpAHxwcSGeeiBGBpm" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iOS图片大小修改和拼接长图"/></a><div class="content"><a class="title" href="/posts/a0e9a4da.html" title="iOS图片大小修改和拼接长图">iOS图片大小修改和拼接长图</a><time datetime="2020-06-07T07:23:56.000Z" title="发表于 2020-06-07 15:23:56">2020-06-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/cd80baa0.html" title="MacOS使用Homebrew安装MySQL记录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.dribbble.com/users/1047458/screenshots/2993962/media/9ad91995a5c27ceaae959c1f4e5fb96b.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MacOS使用Homebrew安装MySQL记录"/></a><div class="content"><a class="title" href="/posts/cd80baa0.html" title="MacOS使用Homebrew安装MySQL记录">MacOS使用Homebrew安装MySQL记录</a><time datetime="2019-10-27T02:56:03.000Z" title="发表于 2019-10-27 10:56:03">2019-10-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2024 By DeveloperLY</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
